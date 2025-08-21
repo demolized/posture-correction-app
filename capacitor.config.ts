@@ -7,12 +7,12 @@ const config: CapacitorConfig = {
   server: {
     androidScheme: 'https'
   },
-  android: {
-    buildOptions: {
-      keystorePath: undefined,
-      keystorePassword: undefined,
-      keystoreAlias: undefined,
-      keystoreAliasPassword: undefined,
+  plugins: {
+    SplashScreen: {
+      launchShowDuration: 3000,
+      backgroundColor: "#ffffff",
+      showSpinner: true,
+      spinnerColor: "#3b82f6"
     }
   }
 };

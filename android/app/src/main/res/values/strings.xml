@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Posture Correction App</string>
+    <string name="title_activity_main">Posture Correction App</string>
+    <string name="package_name">com.posturecorrection.app</string>
+    <string name="custom_url_scheme">com.posturecorrection.app</string>
+</resources>

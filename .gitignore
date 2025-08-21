@@ -63,8 +63,9 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# Android build files
-/android
+# Android build files (keep source, exclude build artifacts)
+/android/app/build/
+/android/build/
 *.apk
 *.aab
 *.keystore
@@ -81,3 +82,11 @@ web-build/
 # Temporary files
 *.tmp
 *.temp
+
+# Keep important Android source files
+!/android/app/src/
+!/android/build.gradle
+!/android/settings.gradle
+!/android/gradle/
+!/android/gradlew
+!/android/gradlew.bat

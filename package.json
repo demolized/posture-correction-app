@@ -14,7 +14,11 @@
     "android:sync": "npx cap sync android",
     "mobile:prepare": "npm run build && npx cap sync",
     "mobile:open": "npx cap open",
-    "mobile:serve": "npx cap serve"
+    "mobile:serve": "npx cap serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "build:apk": "npm run build && npx cap sync android && npx cap build android",
+    "release:android": "npm run build:apk && echo 'APK built successfully! Check android/app/build/outputs/apk/debug/'"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -28,7 +32,8 @@
     "tailwindcss": "^3.3.0",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.24",
-    "@capacitor/cli": "^5.0.0"
+    "@capacitor/cli": "^5.0.0",
+    "gh-pages": "^6.1.0"
   },
   "browserslist": {
     "production": [
@@ -52,11 +57,11 @@
     "android",
     "capacitor"
   ],
-  "author": "Your Name",
+  "author": "D3mola3d",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/posture-correction-app.git"
+    "url": "https://github.com/demolized/posture-correction-app.git"
   },
-  "homepage": "https://yourusername.github.io/posture-correction-app"
+  "homepage": "https://demolized.github.io/posture-correction-app"
 }

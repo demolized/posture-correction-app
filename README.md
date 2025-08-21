@@ -2,7 +2,31 @@
 
 A comprehensive, interactive Posture Correction Application built with React and Tailwind CSS, with full Android mobile app support. Transform your posture and transform your confidence with this professional-grade wellness tool.
 
-## 🚀 Features
+## 🚀 **Live Demo & Downloads**
+
+### 🌐 **Web App (No Installation Required)**
+**Live Demo:** [https://demolized.github.io/posture-correction-app](https://demolized.github.io/posture-correction-app)
+
+### 📱 **Android APK Download**
+**Latest Release:** [Download APK v1.0.0](https://github.com/demolized/posture-correction-app/releases/latest)
+
+**Direct APK Link:** [PostureCorrectionApp.apk](https://github.com/demolized/posture-correction-app/releases/latest/download/app-debug.apk)
+
+## 📱 **Quick Start**
+
+### **Option 1: Use Web App (Recommended)**
+1. Visit: [https://demolized.github.io/posture-correction-app](https://demolized.github.io/posture-correction-app)
+2. No installation required
+3. Works on all devices
+4. Always up-to-date
+
+### **Option 2: Install Android App**
+1. Download APK from [GitHub Releases](https://github.com/demolized/posture-correction-app/releases/latest)
+2. Enable "Install from unknown sources" in Android settings
+3. Install the APK file
+4. Launch "Posture Correction App"
+
+## ✨ **Features**
 
 ### ✨ Core Functionality
 - **Three Main Tabs**: Assessment, Exercises, and Progress tracking
@@ -58,7 +82,7 @@ A comprehensive, interactive Posture Correction Application built with React and
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/posture-correction-app.git
+   git clone https://github.com/demolized/posture-correction-app.git
    cd posture-correction-app
    ```
 
@@ -116,6 +140,9 @@ npm run android:run
 
 # Sync web assets with Android
 npm run android:sync
+
+# Build APK directly (recommended)
+npm run build:apk
 ```
 
 ### Android App Features
@@ -130,7 +157,7 @@ npm run android:sync
 ### GitHub Pages
 1. **Update package.json homepage**
    ```json
-   "homepage": "https://yourusername.github.io/posture-correction-app"
+   "homepage": "https://demolized.github.io/posture-correction-app"
    ```
 
 2. **Install gh-pages**
@@ -174,6 +201,7 @@ posture-correction-app/
 │   │       └── AndroidManifest.xml
 │   └── build.gradle               # Android build configuration
 ├── build/                         # Production build output
+├── .github/workflows/             # GitHub Actions workflows
 ├── package.json                   # Dependencies and scripts
 ├── tailwind.config.js            # Tailwind CSS configuration
 ├── postcss.config.js             # PostCSS configuration
@@ -281,6 +309,7 @@ The application is fully responsive and works on:
 # Web Development
 npm start          # Start development server
 npm run build     # Build for production
+npm run deploy    # Deploy to GitHub Pages
 
 # Android Development
 npm run android           # Open in Android Studio
@@ -292,6 +321,9 @@ npm run android:sync     # Sync web assets
 npm run mobile:prepare   # Prepare for mobile
 npm run mobile:open      # Open mobile project
 npm run mobile:serve     # Serve mobile app
+
+# Quick Build
+npm run build:apk        # Build APK directly
 ```
 
 ## 🤝 Contributing
@@ -345,11 +377,20 @@ For technical issues or questions about the application:
 
 ---
 
-**Transform your posture, transform your confidence. Start your journey today!** 💪✨
-
 ## 📞 Contact
 
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-- **Email**: your.email@example.com
-- **Website**: [your-website.com](https://your-website.com)
-# posture-correction-app
+- **GitHub**: [@demolized](https://github.com/demolized)
+- **Repository**: [https://github.com/demolized/posture-correction-app](https://github.com/demolized/posture-correction-app)
+- **Live Demo**: [https://demolized.github.io/posture-correction-app](https://demolized.github.io/posture-correction-app)
+- **APK Download**: [Latest Release](https://github.com/demolized/posture-correction-app/releases/latest)
+
+---
+
+**Transform your posture, transform your confidence. Start your journey today!** 💪✨
+
+## 🚀 **Ready to Use**
+
+✅ **Web App**: [Live Demo](https://demolized.github.io/posture-correction-app)  
+✅ **Android APK**: [Download Latest](https://github.com/demolized/posture-correction-app/releases/latest)  
+✅ **Source Code**: [GitHub Repository](https://github.com/demolized/posture-correction-app)  
+✅ **Documentation**: [Setup Guide](GITHUB_SETUP.md) | [Deployment Guide](DEPLOYMENT.md)
