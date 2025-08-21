@@ -352,3 +352,4 @@ For technical issues or questions about the application:
 - **GitHub**: [@yourusername](https://github.com/yourusername)
 - **Email**: your.email@example.com
 - **Website**: [your-website.com](https://your-website.com)
+# posture-correction-app
