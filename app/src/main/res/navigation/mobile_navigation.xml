@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_posture">
+
+    <fragment
+        android:id="@+id/nav_posture"
+        android:name="com.example.myapplication.PostureFragment"
+        android:label="@string/posture"
+        tools:layout="@layout/fragment_posture">
+        <action
+            android:id="@+id/action_nav_posture_to_nav_calibration"
+            app:destination="@id/nav_calibration" />
+        <action
+            android:id="@+id/action_nav_posture_to_nav_progress"
+            app:destination="@id/nav_progress" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_calibration"
+        android:name="com.example.myapplication.CalibrationFragment"
+        android:label="Calibration"
+        tools:layout="@layout/fragment_calibration" />
+
+    <fragment
+        android:id="@+id/nav_progress"
+        android:name="com.example.myapplication.ProgressFragment"
+        android:label="@string/progress"
+        tools:layout="@layout/fragment_progress" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.myapplication.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_nav_settings_to_nav_calibration"
+            app:destination="@id/nav_calibration" />
+        <action
+            android:id="@+id/action_nav_settings_to_nav_posture"
+            app:destination="@id/nav_posture" />
+    </fragment>
+</navigation>
