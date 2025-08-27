@@ -25,4 +25,7 @@
     <string name="progress">Progress</string>
     <string name="settings">Settings</string>
     <string name="angle_format">%d°</string>
+    <string name="assessment">Assessment</string>
+    <string name="exercises">Exercises</string>
+    <string name="calibration">Calibration</string>
 </resources>

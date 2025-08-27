@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AssessmentFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/title_posture_analysis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Posture Analysis"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_posture_analysis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Identifying your current posture issues:"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_posture_analysis" />
+
+        <ImageView
+            android:id="@+id/image_posture"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_posture_analysis"
+            android:contentDescription="Posture analysis image" />
+
+        <TextView
+            android:id="@+id/title_muscle_analysis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Muscle Analysis"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_posture" />
+
+        <GridLayout
+            android:id="@+id/grid_muscle_analysis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:columnCount="2"
+            android:rowCount="5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_muscle_analysis">
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="fill_horizontal"
+                android:text="Tight Muscles to Release:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_column="1"
+                android:layout_gravity="fill_horizontal"
+                android:text="Weak Muscles to Strengthen:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="fill_horizontal"
+                android:text="Pecs" />
+
+            <TextView
+                android:layout_column="1"
+                android:layout_gravity="fill_horizontal"
+                android:text="Mid/Lower Traps" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="fill_horizontal"
+                android:text="Upper Traps" />
+
+            <TextView
+                android:layout_column="1"
+                android:layout_gravity="fill_horizontal"
+                android:text="Rhomboids" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="fill_horizontal"
+                android:text="Anterior Deltoid" />
+
+            <TextView
+                android:layout_column="1"
+                android:layout_gravity="fill_horizontal"
+                android:text="Deep Neck Flexors" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="fill_horizontal"
+                android:text="Thoracic Spine" />
+
+            <TextView
+                android:layout_column="1"
+                android:layout_gravity="fill_horizontal"
+                android:text="Posterior Deltoid" />
+        </GridLayout>
+
+        <TextView
+            android:id="@+id/title_lifestyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Lifestyle Recommendations"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/grid_muscle_analysis" />
+
+        <TextView
+            android:id="@+id/text_lifestyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Guidelines for daily habits and sleep setup."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_lifestyle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
