@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/posture-correction-app/static/css/main.bbc0ed8a.css",
+    "main.js": "/posture-correction-app/static/js/main.9e0bdef2.js",
+    "index.html": "/posture-correction-app/index.html",
+    "main.bbc0ed8a.css.map": "/posture-correction-app/static/css/main.bbc0ed8a.css.map",
+    "main.9e0bdef2.js.map": "/posture-correction-app/static/js/main.9e0bdef2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bbc0ed8a.css",
+    "static/js/main.9e0bdef2.js"
+  ]
+}
