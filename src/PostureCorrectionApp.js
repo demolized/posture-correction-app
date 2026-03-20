@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { 
   CheckCircle, 
   Clock, 
@@ -17,14 +17,81 @@ import {
 } from 'lucide-react';
 
 const PostureCorrectionApp = () => {
+  const STORAGE = useMemo(
+    () => ({
+      ACTIVE_TAB: 'pca_activeTab_v1',
+      CURRENT_WEEK: 'pca_currentWeek_v1',
+      COMPLETED_PREFIX: 'pca_completedExercises_',
+    }),
+    []
+  );
+
+  const todayKey = useMemo(() => new Date().toISOString().slice(0, 10), []);
+
+  const safeLocalStorageGet = useCallback((key) => {
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  }, []);
+
+  const safeLocalStorageSet = useCallback((key, value) => {
+    try {
+      localStorage.setItem(key, value);
+    } catch {
+      // Ignore persistence failures (private mode, quota, etc.)
+    }
+  }, []);
+
   // State management for all app functionality
-  const [activeTab, setActiveTab] = useState('assessment');
-  const [completedExercises, setCompletedExercises] = useState({});
-  const [currentWeek, setCurrentWeek] = useState(1);
+  const [activeTab, setActiveTab] = useState(() => {
+    if (typeof window === 'undefined') return 'assessment';
+    const raw = safeLocalStorageGet(STORAGE.ACTIVE_TAB);
+    const allowed = new Set(['assessment', 'exercises', 'progress']);
+    return raw && allowed.has(raw) ? raw : 'assessment';
+  });
+
+  const [currentWeek, setCurrentWeek] = useState(() => {
+    if (typeof window === 'undefined') return 1;
+    const raw = safeLocalStorageGet(STORAGE.CURRENT_WEEK);
+    const parsed = raw ? Number(raw) : 1;
+    if (!Number.isFinite(parsed)) return 1;
+    return Math.min(12, Math.max(1, parsed));
+  });
+
+  const [completedExercises, setCompletedExercises] = useState(() => {
+    if (typeof window === 'undefined') return {};
+    const raw = safeLocalStorageGet(`${STORAGE.COMPLETED_PREFIX}${todayKey}`);
+    if (!raw) return {};
+    try {
+      const parsed = JSON.parse(raw);
+      return parsed && typeof parsed === 'object' ? parsed : {};
+    } catch {
+      return {};
+    }
+  });
+
   const [timerActive, setTimerActive] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [activeTimer, setActiveTimer] = useState(null);
   const [expandedExercise, setExpandedExercise] = useState(null);
+
+  // Persist lightweight user state so the app feels "complete"
+  useEffect(() => {
+    safeLocalStorageSet(STORAGE.ACTIVE_TAB, activeTab);
+  }, [activeTab, STORAGE, safeLocalStorageSet]);
+
+  useEffect(() => {
+    safeLocalStorageSet(STORAGE.CURRENT_WEEK, String(currentWeek));
+  }, [currentWeek, STORAGE, safeLocalStorageSet]);
+
+  useEffect(() => {
+    safeLocalStorageSet(
+      `${STORAGE.COMPLETED_PREFIX}${todayKey}`,
+      JSON.stringify(completedExercises)
+    );
+  }, [completedExercises, todayKey, STORAGE, safeLocalStorageSet]);
 
   // Timer effect for countdown functionality
   useEffect(() => {
@@ -48,7 +115,7 @@ const PostureCorrectionApp = () => {
   };
 
   const pauseTimer = () => {
-    setTimerActive(!timerActive);
+    setTimerActive((prev) => !prev);
   };
 
   const resetTimer = () => {
@@ -73,7 +140,7 @@ const PostureCorrectionApp = () => {
   };
 
   // Comprehensive exercise database
-  const exercises = {
+  const exercises = useMemo(() => ({
     mobility: [
       {
         id: 'pec-stretch',
@@ -170,19 +237,23 @@ const PostureCorrectionApp = () => {
         icon: <TrendingUp className="text-purple-600" size={20} />
       }
     ]
-  };
+  }), []);
 
   // Progressive weekly program structure
-  const weeklyProgram = {
+  const weeklyProgram = useMemo(() => ({
     1: { focus: 'Mobility & Activation', emphasis: 'Establish routine, focus on stretching' },
     2: { focus: 'Mobility & Activation', emphasis: 'Increase hold times, perfect form' },
     3: { focus: 'Strength Building', emphasis: 'Add resistance, maintain mobility work' },
     4: { focus: 'Strength Building', emphasis: 'Increase sets, integrate into workouts' },
     5: { focus: 'Integration', emphasis: 'Full routine, increased load' },
     6: { focus: 'Integration', emphasis: 'Advanced progressions' },
+    7: { focus: 'Integration', emphasis: 'Consolidate form; build endurance without losing posture' },
     8: { focus: 'Maintenance', emphasis: 'Assess progress, maintain gains' },
+    9: { focus: 'Integration', emphasis: 'Blend mobility + strength; keep weekly consistency' },
+    10: { focus: 'Integration', emphasis: 'Refine technique; add challenge while staying tall' },
+    11: { focus: 'Maintenance', emphasis: 'Recovery + habit building; keep the routine sustainable' },
     12: { focus: 'Long-term Success', emphasis: 'Lifestyle integration, visible results' }
-  };
+  }), []);
 
   // Interactive Exercise Card Component
   const ExerciseCard = ({ exercise, category }) => {
@@ -199,7 +270,10 @@ const PostureCorrectionApp = () => {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-4">
               <button
+                type="button"
                 onClick={() => markComplete(exercise.id)}
+                aria-pressed={!!isCompleted}
+                aria-label={isCompleted ? 'Mark exercise incomplete' : 'Mark exercise complete'}
                 className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all duration-200 hover:scale-110 ${
                   isCompleted 
                     ? 'bg-green-500 border-green-500 text-white shadow-lg' 
@@ -220,7 +294,9 @@ const PostureCorrectionApp = () => {
               </div>
             </div>
             <button
+              type="button"
               onClick={() => setExpandedExercise(isExpanded ? null : exercise.id)}
+              aria-expanded={isExpanded}
               className="text-gray-500 hover:text-gray-700 transition-colors p-2 hover:bg-gray-100 rounded-lg"
             >
               {isExpanded ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
@@ -266,6 +342,7 @@ const PostureCorrectionApp = () => {
                   <div className="flex space-x-3">
                     {!isTimerActive ? (
                       <button
+                        type="button"
                         onClick={() => startTimer(exercise.id, exercise.duration)}
                         className="btn-primary flex items-center space-x-2 hover:scale-105 transition-transform"
                       >
@@ -275,6 +352,7 @@ const PostureCorrectionApp = () => {
                     ) : (
                       <>
                         <button
+                          type="button"
                           onClick={pauseTimer}
                           className="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center space-x-2"
                         >
@@ -282,6 +360,7 @@ const PostureCorrectionApp = () => {
                           <span>{timerActive ? 'Pause' : 'Resume'}</span>
                         </button>
                         <button
+                          type="button"
                           onClick={resetTimer}
                           className="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-3 rounded-lg transition-colors"
                         >
@@ -302,10 +381,12 @@ const PostureCorrectionApp = () => {
   // Tab Button Component
   const TabButton = ({ id, label, icon: Icon, isActive, onClick }) => (
     <button
+      type="button"
       onClick={() => onClick(id)}
       className={`tab-button ${
         isActive ? 'tab-button-active' : 'tab-button-inactive'
       }`}
+      aria-current={isActive ? 'page' : undefined}
     >
       <Icon size={20} />
       <span>{label}</span>
@@ -601,28 +682,36 @@ const PostureCorrectionApp = () => {
               <div className="mb-10">
                 <h3 className="text-xl font-semibold text-gray-800 mb-6">Timeline & Milestones</h3>
                 <div className="space-y-4">
-                  {Object.entries(weeklyProgram).map(([week, data]) => (
-                    <div
-                      key={week}
-                      className={`flex items-center p-5 rounded-lg border-2 transition-all duration-300 hover:shadow-md ${
-                        currentWeek >= parseInt(week)
-                          ? 'border-green-400 bg-green-50 shadow-sm'
-                          : 'border-gray-200 bg-gray-50'
-                      }`}
-                    >
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-5 transition-all duration-300 ${
-                        currentWeek >= parseInt(week)
-                          ? 'bg-green-500 text-white shadow-lg scale-110'
-                          : 'bg-gray-300 text-gray-600'
-                      }`}>
-                        {currentWeek >= parseInt(week) ? <CheckCircle size={20} /> : week}
+                  {Array.from({ length: 12 }, (_, i) => i + 1).map((week) => {
+                    const data = weeklyProgram[week];
+                    const isActive = currentWeek >= week;
+                    return (
+                      <div
+                        key={week}
+                        className={`flex items-center p-5 rounded-lg border-2 transition-all duration-300 hover:shadow-md ${
+                          isActive
+                            ? 'border-green-400 bg-green-50 shadow-sm'
+                            : 'border-gray-200 bg-gray-50'
+                        }`}
+                      >
+                        <div
+                          className={`w-10 h-10 rounded-full flex items-center justify-center mr-5 transition-all duration-300 ${
+                            isActive
+                              ? 'bg-green-500 text-white shadow-lg scale-110'
+                              : 'bg-gray-300 text-gray-600'
+                          }`}
+                        >
+                          {isActive ? <CheckCircle size={20} /> : week}
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-800 text-lg">
+                            Week {week}: {data.focus}
+                          </h4>
+                          <p className="text-gray-600">{data.emphasis}</p>
+                        </div>
                       </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-800 text-lg">Week {week}: {data.focus}</h4>
-                        <p className="text-gray-600">{data.emphasis}</p>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
