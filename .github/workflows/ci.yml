@@ -26,17 +26,19 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Run tests
         run: npm test -- --watchAll=false --passWithNoTests --ci
         env:
           CI: true
+          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: Build (smoke test)
         run: npm run build
         env:
           CI: false
+          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: Upload build artifact
         if: matrix.node-version == '18.x'
