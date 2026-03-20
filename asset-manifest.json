@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/posture-correction-app/static/css/main.bbc0ed8a.css",
-    "main.js": "/posture-correction-app/static/js/main.9e0bdef2.js",
+    "main.css": "/posture-correction-app/static/css/main.5ed6e1a6.css",
+    "main.js": "/posture-correction-app/static/js/main.fc8cc776.js",
     "index.html": "/posture-correction-app/index.html",
-    "main.bbc0ed8a.css.map": "/posture-correction-app/static/css/main.bbc0ed8a.css.map",
-    "main.9e0bdef2.js.map": "/posture-correction-app/static/js/main.9e0bdef2.js.map"
+    "main.5ed6e1a6.css.map": "/posture-correction-app/static/css/main.5ed6e1a6.css.map",
+    "main.fc8cc776.js.map": "/posture-correction-app/static/js/main.fc8cc776.js.map"
   },
   "entrypoints": [
-    "static/css/main.bbc0ed8a.css",
-    "static/js/main.9e0bdef2.js"
+    "static/css/main.5ed6e1a6.css",
+    "static/js/main.fc8cc776.js"
   ]
 }
