@@ -139,6 +139,8 @@ const PostureCorrectionApp = () => {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
+  const imageBaseUrl = `${process.env.PUBLIC_URL}/exercises/`;
+
   // Comprehensive exercise database
   const exercises = useMemo(() => ({
     mobility: [
@@ -323,6 +325,16 @@ const PostureCorrectionApp = () => {
                     <p className="text-sm text-yellow-700 leading-relaxed">{exercise.tips}</p>
                   </div>
                 </div>
+              </div>
+
+              {/* Exercise illustration */}
+              <div className="bg-white p-4 rounded-lg border border-gray-200">
+                <img
+                  src={`${imageBaseUrl}${exercise.id}.png`}
+                  alt={exercise.name}
+                  loading="lazy"
+                  className="w-full h-44 object-contain rounded-md bg-white"
+                />
               </div>
 
               {/* Timer and controls */}
